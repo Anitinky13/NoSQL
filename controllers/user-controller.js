@@ -24,14 +24,15 @@ const userController = {
   },
   //to getONE user by Id
   getUsersById({ params }, res) {
-    User.findOne({ _id: params.userId }).populate({
-      path: "thoughts",
-      select: "-__v -username",
-    });
-    populate({
-      path: "friends",
-      select: "-__v -thoughts",
-    })
+    User.findOne({ _id: params.userId })
+      .populate({
+        path: "thoughts",
+        select: "-__v -username",
+      })
+      .populate({
+        path: "friends",
+        select: "-__v -thoughts",
+      })
       .select("-__v")
       .then((dbUserData) => {
         if (!dbUserData) {

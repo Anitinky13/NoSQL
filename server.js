@@ -13,7 +13,6 @@ app.use(require("./routes"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/NoSQL", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
 });
 
 //Use this to log mongo queries being execute
