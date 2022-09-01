@@ -4,8 +4,8 @@ const thoughtController = {
   getAllThoughts(req, res) {
     Thought.find({})
       // .populate({ path: "users", select: "-__v" })
-      // .select("-__v")
-      // .sort({ _id: -1 })
+      .select("-__v")
+      .sort({ _id: -1 })
       .then((dbThoughtsData) => res.json(dbThoughtsData))
       .catch((err) => {
         console.log(err);
@@ -37,10 +37,10 @@ const thoughtController = {
   //to create a thought
   createThoughts({ body }, res) {
     Thought.create(body)
-      .then(({ _id }) => {
+      .then((ThoughtsData) => {
         return User.findOneAndUpdate(
           { _id: body.userId },
-          { $push: { thoughts: _id } },
+          { $push: { thoughts: ThoughtsData._id } },
           { new: true }
         );
       })
